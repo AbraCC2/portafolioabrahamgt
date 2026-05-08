@@ -64,7 +64,6 @@
             z-index: 150;
             width: 90%;
             max-width: 850px;
-            /* Estado inicial vertical en móviles se maneja por JS/GSAP */
         }
 
         .switch-track {
@@ -94,6 +93,7 @@
             letter-spacing: 3px;
             color: white;
             opacity: 0.3;
+            display: inline-block; /* Importante para la rotación inversa */
         }
 
         .selector-pill {
@@ -137,50 +137,42 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
         .post-card img { width: 100%; height: 100%; object-fit: cover; }
-        .placeholder-card { display: flex; align-items: center; justify-content: center; text-align: center; border: 2px dashed rgba(255,255,255,0.2); padding: 15px; }
-        .placeholder-card span { font-size: 14px; opacity: 0.4; text-transform: lowercase; }
-
-        /* PLANES */
-        .planes-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-        .plan-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 30px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            flex: 1;
-            min-width: 300px;
-            max-width: 380px;
-            backdrop-filter: blur(10px);
-        }
-        .plan-card h2 { font-size: 24px; margin-bottom: 15px; text-transform: lowercase; }
-        .plan-card .price { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
-        .plan-card .desc { font-size: 13px; opacity: 0.7; margin-bottom: 20px; line-height: 1.4; }
-        .hire-btn { display: inline-block; text-decoration: none; background: white; color: black; padding: 12px 25px; border-radius: 50px; font-weight: 800; font-size: 13px; text-transform: lowercase; }
 
         /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 768px) {
             .navbar { padding: 20px; }
+            .nav-left { gap: 8px; }
             .logo-btn { font-size: 16px; }
+            
+            /* Separación para que el copyright no pegue a planes */
+            .copyright-text {
+                margin-left: 10px;
+                font-size: 7px !important;
+            }
+
             .nav-btn { font-size: 10px; padding: 6px 12px; }
 
-            /* Switch Inicial Vertical */
+            /* Switch Inicial más grande */
             .master-switch-container { 
-                width: 70%; /* Un poco más estrecho para que el giro vertical no choque */
+                width: 85%; 
             }
-            .switch-track { height: 70px; border-radius: 100px; }
-            .switch-option span { font-size: 14px; letter-spacing: 1px; }
+            .switch-track { 
+                height: 100px; /* Más robusto */
+                border-radius: 50px; 
+            }
+            .switch-option span { 
+                font-size: 18px; 
+                letter-spacing: 1px; 
+            }
             .selector-pill { 
-                width: calc(50% - 10px); 
-                height: calc(100% - 20px); 
-                top: 10px; 
-                left: 10px; 
+                width: calc(50% - 12px); 
+                height: calc(100% - 24px); 
+                top: 12px; 
+                left: 12px; 
             }
 
-            .main-content { padding: 100px 15px 150px 15px; }
+            .main-content { padding: 100px 15px 180px 15px; }
             .section-view { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            .planes-grid { display: block; }
-            .plan-card { min-width: 100%; margin-bottom: 15px; padding: 25px; }
         }
     </style>
 </head>
@@ -192,14 +184,14 @@
             <a href="https://wa.me/529987684125" target="_blank" class="nav-btn">contacto</a>
             <button class="nav-btn" id="btn-show-planes">planes</button>
         </div>
-        <div style="font-weight: 700; opacity: 0.3; font-size: 8px; text-transform: lowercase;">portfolio © 2026</div>
+        <div class="copyright-text" style="font-weight: 700; opacity: 0.3; font-size: 8px; text-transform: lowercase;">portfolio © 2026</div>
     </nav>
 
     <div class="master-switch-container" id="master-switch">
         <div class="switch-track">
             <div class="selector-pill" id="pill"></div>
-            <div class="switch-option" id="btn-design"><span>diseños</span></div>
-            <div class="switch-option" id="btn-photos"><span>fotos</span></div>
+            <div class="switch-option" id="btn-design"><span class="txt-inner">diseños</span></div>
+            <div class="switch-option" id="btn-photos"><span class="txt-inner">fotos</span></div>
         </div>
     </div>
 
@@ -207,19 +199,8 @@
         <div class="section-view" id="view-design"></div>
         <div class="section-view" id="view-photos"></div>
         <div class="section-view" id="view-planes">
-            <div class="planes-grid">
-                <div class="plan-card">
-                    <h2>landing page</h2>
-                    <div class="price">$3,899 <small>MXN</small></div>
-                    <p class="desc">Tu marca en una sola página. Diseño de alto impacto enfocado en conversión.</p>
-                    <a href="https://wa.me/529987684125" class="hire-btn">quiero mi página</a>
-                </div>
-                <div class="plan-card">
-                    <h2>diseño ilimitado</h2>
-                    <div class="price">$5,599 <small>MXN/mes</small></div>
-                    <p class="desc">Todos los diseños que necesites en un flujo constante de trabajo.</p>
-                    <a href="https://wa.me/529987684125" class="hire-btn">quiero contratar</a>
-                </div>
+            <div style="text-align: center; padding: 40px 0;">
+                <h2 style="text-transform: lowercase; font-size: 30px;">próximamente planes</h2>
             </div>
         </div>
     </main>
@@ -228,19 +209,20 @@
         const pill = document.getElementById('pill');
         const masterSwitch = document.getElementById('master-switch');
         const mainContent = document.getElementById('main-content');
+        const texts = document.querySelectorAll('.txt-inner');
         const isMobile = window.innerWidth <= 768;
 
-        // ESTADO INICIAL: Si es móvil, rotar 90 grados
+        // INICIO: Vertical, pero texto nivelado horizontalmente
         if (isMobile) {
-            gsap.set(masterSwitch, { rotation: 90 });
+            gsap.set(masterSwitch, { rotation: 90, scale: 1.2 });
+            gsap.set(texts, { rotation: -90 }); // Rotación inversa para leer horizontal
         }
 
         function initGallery() {
             const design = document.getElementById('view-design');
             const photos = document.getElementById('view-photos');
-            for (let i = 1; i <= 18; i++) design.innerHTML += `<div class="post-card"><img src="diseño${i}.jpg"></div>`;
-            design.innerHTML += `<div class="post-card placeholder-card"><span>aquí podría estar el tuyo</span></div>`;
-            for (let i = 1; i <= 9; i++) photos.innerHTML += `<div class="post-card"><img src="foto${i}.jpg"></div>`;
+            for (let i = 1; i <= 12; i++) design.innerHTML += `<div class="post-card"><img src="diseño${i}.jpg"></div>`;
+            for (let i = 1; i <= 8; i++) photos.innerHTML += `<div class="post-card"><img src="foto${i}.jpg"></div>`;
         }
         initGallery();
 
@@ -248,26 +230,25 @@
             const isMobileView = window.innerWidth <= 768;
 
             if(!mainContent.style.display || mainContent.style.display === 'none') {
-                // ANIMACIÓN DE DESPIERTE
-                const targetTop = isMobileView ? "calc(100% - 70px)" : "calc(100% - 90px)";
-                const targetScale = isMobileView ? 0.9 : 0.5;
-
+                // ANIMACIÓN AL ACTIVAR
                 gsap.to(masterSwitch, { 
-                    top: targetTop, 
-                    rotation: 0, // Regresa a horizontal
-                    scale: targetScale, 
+                    top: isMobileView ? "calc(100% - 80px)" : "calc(100% - 90px)", 
+                    rotation: 0, 
+                    scale: isMobileView ? 0.95 : 0.5, // Un poco más grande en móvil al navegar
                     duration: 1.2, 
                     ease: "expo.inOut" 
                 });
+
+                if(isMobileView) {
+                    gsap.to(texts, { rotation: 0, duration: 1.2, ease: "expo.inOut" });
+                }
 
                 mainContent.style.display = 'block';
                 gsap.fromTo(mainContent, { opacity: 0 }, { opacity: 1, duration: 0.6, delay: 0.5 });
             }
 
-            // Lógica de cambio de vista
             document.querySelectorAll('.section-view').forEach(v => v.classList.remove('active-view'));
-            const target = document.getElementById(`view-${type}`);
-            target.classList.add('active-view');
+            document.getElementById(`view-${type}`).classList.add('active-view');
 
             if(type === 'planes') {
                 gsap.to(pill, { opacity: 0, duration: 0.3 });
@@ -281,25 +262,22 @@
         document.getElementById('btn-photos').onclick = () => showView('photos');
         document.getElementById('btn-show-planes').onclick = () => showView('planes');
 
-        // BOTÓN ABRAHAM: Regresa todo al inicio
         document.getElementById('reset-home').onclick = () => {
             const isMobileView = window.innerWidth <= 768;
+            gsap.to(mainContent, { opacity: 0, duration: 0.4, onComplete: () => mainContent.style.display = 'none' });
             
-            // Ocultar contenido
-            gsap.to(mainContent, { opacity: 0, duration: 0.4, onComplete: () => {
-                mainContent.style.display = 'none';
-            }});
-
-            // Regresar Switch al centro y rotar si es móvil
             gsap.to(masterSwitch, { 
                 top: "50%", 
                 rotation: isMobileView ? 90 : 0, 
-                scale: 1, 
+                scale: isMobileView ? 1.2 : 1, 
                 duration: 1.2, 
                 ease: "expo.inOut" 
             });
+
+            if(isMobileView) {
+                gsap.to(texts, { rotation: -90, duration: 1.2, ease: "expo.inOut" });
+            }
             
-            // Reset de la pastilla
             gsap.to(pill, { xPercent: 0, opacity: 1 });
         };
     </script>
