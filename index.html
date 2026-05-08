@@ -1,0 +1,416 @@
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Abraham</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Syne', sans-serif;
+        }
+
+        body, html {
+            height: 100%;
+            width: 100%;
+            background: radial-gradient(circle at center, #D30000 0%, #a80000 100%);
+            background-attachment: fixed;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 60px;
+            z-index: 200;
+            mix-blend-mode: difference;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-btn {
+            cursor: pointer;
+            font-weight: 800;
+            text-transform: lowercase;
+            letter-spacing: 1px;
+            font-size: 18px;
+            margin-right: 15px;
+        }
+
+        .nav-btn {
+            text-decoration: none;
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: lowercase;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 8px 18px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .nav-btn:hover {
+            background: white;
+            color: black;
+            transform: scale(1.05);
+        }
+
+        /* MASTER SWITCH */
+        .master-switch-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 150;
+            width: 90%;
+            max-width: 850px;
+        }
+
+        .switch-track {
+            width: 100%;
+            height: 140px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 300px;
+            display: flex;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(15px);
+        }
+
+        .switch-option {
+            flex: 1;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .switch-option span {
+            text-transform: lowercase;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: white;
+            opacity: 0.3;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+        }
+
+        .switch-option:hover span {
+            transform: scale(1.2) translateY(-5px);
+            opacity: 1;
+        }
+
+        .selector-pill {
+            position: absolute;
+            width: calc(50% - 18px);
+            height: calc(100% - 36px);
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 300px;
+            top: 18px;
+            left: 18px;
+            z-index: 1;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            pointer-events: none;
+        }
+
+        /* GALERÍA */
+        .main-content {
+            width: 100%;
+            display: none;
+            padding: 160px 60px 200px 60px; 
+            opacity: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .section-view {
+            display: none;
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .active-view { display: grid; }
+
+        /* PLANES VIEW */
+        #view-planes {
+            display: none;
+            height: auto;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #view-planes.active-view {
+            display: flex;
+        }
+
+        .planes-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .plan-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            flex: 1;
+            min-width: 320px;
+            max-width: 380px;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: transform 0.3s ease;
+        }
+
+        .plan-card:hover {
+            transform: scale(1.02);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .plan-card h2 { text-transform: lowercase; font-size: 32px; margin-bottom: 20px; color: #fff; }
+        .plan-card .price { font-size: 40px; font-weight: 800; margin-bottom: 10px; }
+        .plan-card .desc { font-size: 14px; opacity: 0.8; margin-bottom: 25px; line-height: 1.5; }
+
+        .hire-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: white;
+            color: black;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 14px;
+            text-transform: lowercase;
+            margin-top: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hire-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .small-print { font-size: 11px; opacity: 0.4; text-transform: lowercase; margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+
+        .post-card {
+            background: rgba(255,255,255,0.03); 
+            aspect-ratio: 4 / 5; 
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1.3);
+        }
+
+        .post-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .post-card:hover { transform: translateY(-15px) scale(1.02); border-color: rgba(255,255,255,0.3); }
+        .post-card:hover img { transform: scale(1.05); }
+
+        /* Estilo para los cuadros de invitación */
+        .placeholder-card {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+            border: 2px dashed rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.02);
+        }
+
+        .placeholder-card span {
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: lowercase;
+            opacity: 0.4;
+            letter-spacing: 1px;
+            line-height: 1.4;
+        }
+
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-left">
+            <div class="logo-btn" id="reset-home">abraham</div>
+            <a href="https://wa.me/529987684125" target="_blank" class="nav-btn">contacto</a>
+            <button class="nav-btn" id="btn-show-planes">planes</button>
+        </div>
+        <div style="font-weight: 700; opacity: 0.4; letter-spacing: 1px; font-size: 11px; text-transform: lowercase;">portfolio © 2026</div>
+    </nav>
+
+    <div class="master-switch-container" id="master-switch">
+        <div class="switch-track">
+            <div class="selector-pill" id="pill"></div>
+            <div class="switch-option is-active" id="btn-design"><span>diseños</span></div>
+            <div class="switch-option" id="btn-photos"><span>fotos</span></div>
+        </div>
+    </div>
+
+    <main class="main-content" id="main-content">
+        <div class="section-view" id="view-design"></div>
+        <div class="section-view" id="view-photos"></div>
+
+        <div class="section-view" id="view-planes">
+            <div class="planes-grid">
+                <div class="plan-card">
+                    <div>
+                        <h2>landing page</h2>
+                        <div class="price">$3,799 <small style="font-size: 18px;">MXN</small></div>
+                        <div class="desc">Tu marca en una sola página. Diseño de alto impacto enfocado en conversión con botones directos a WhatsApp. Ideal para mostrar servicios y ser contactado al instante.</div>
+                        <a href="https://wa.me/529987684125?text=Hola%20Abraham,%20me%20interesa%20el%20servicio%20de%20Landing%20Page." target="_blank" class="hire-btn">quiero mi página</a>
+                    </div>
+                    <div class="small-print">* pago único por proyecto. incluye diseño responsivo para móviles.</div>
+                </div>
+
+                <div class="plan-card">
+                    <div>
+                        <h2>diseño ilimitado</h2>
+                        <div class="price">$5,599 <small style="font-size: 18px;">MXN / mes</small></div>
+                        <div class="desc">Acceso a todos los diseños que necesites en un flujo de 24 horas totales de trabajo mensual.</div>
+                        <a href="https://wa.me/529987684125?text=Hola%20Abraham,%20me%20interesa%20contratar%20el%20plan%20de%20Diseño%20Ilimitado." target="_blank" class="hire-btn">quiero contratar</a>
+                    </div>
+                    <div class="small-print">* requiere suscripción mensual activa para aplicar tarifa.</div>
+                </div>
+
+                <div class="plan-card">
+                    <div>
+                        <h2>fotos de producto</h2>
+                        <div class="price">$2,599 <small style="font-size: 18px;">MXN / mes</small></div>
+                        <div class="desc">Suscripción mensual: Todas las fotos que tu marca requiera.</div>
+                        <div style="margin: 10px 0; opacity: 0.3;">— o —</div>
+                        <div style="font-size: 13px; font-weight: 700; opacity: 0.8; text-transform: lowercase; margin-bottom: 5px;">precio fijo por foto: $120 MXN</div>
+                        <a href="https://wa.me/529987684125?text=Hola%20Abraham,%20me%20interesa%20contratar%20el%20servicio%20de%20Fotos%20de%20Producto." target="_blank" class="hire-btn">quiero contratar</a>
+                    </div>
+                    <div class="small-print">
+                        * el cliente deberá enviar los productos o cubrir el costo de adquisición para la sesión.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const pill = document.getElementById('pill');
+        const masterSwitch = document.getElementById('master-switch');
+        const mainContent = document.getElementById('main-content');
+        const btnDesign = document.getElementById('btn-design');
+        const btnPhotos = document.getElementById('btn-photos');
+        const btnShowPlanes = document.getElementById('btn-show-planes');
+        const resetHome = document.getElementById('reset-home');
+        
+        const designContainer = document.getElementById('view-design');
+        const photosContainer = document.getElementById('view-photos');
+        const planesContainer = document.getElementById('view-planes');
+
+        let isStarted = false;
+
+        function generateGallery() {
+            // Generar hasta 18 diseños
+            for (let i = 1; i <= 18; i++) {
+                const card = document.createElement('div');
+                card.className = 'post-card';
+                card.innerHTML = `<img src="diseño${i}.jpg" alt="Diseño ${i}">`; 
+                designContainer.appendChild(card);
+            }
+
+            // Agregar 3 cuadros de invitación
+            for (let i = 0; i < 3; i++) {
+                const card = document.createElement('div');
+                card.className = 'post-card placeholder-card';
+                card.innerHTML = `<span>aquí podría estar el tuyo</span>`;
+                designContainer.appendChild(card);
+            }
+
+            // Generar 9 fotos
+            for (let i = 1; i <= 9; i++) {
+                const card = document.createElement('div');
+                card.className = 'post-card';
+                card.innerHTML = `<img src="foto${i}.jpg" alt="Foto ${i}">`;
+                photosContainer.appendChild(card);
+            }
+        }
+
+        generateGallery();
+
+        function showView(type) {
+            if(!isStarted) {
+                isStarted = true;
+                gsap.to(masterSwitch, { top: "calc(100% - 90px)", scale: 0.5, duration: 1.1, ease: "expo.inOut" });
+                mainContent.style.display = 'block';
+                gsap.to(mainContent, { opacity: 1, duration: 0.8, delay: 0.4 });
+            }
+
+            designContainer.classList.remove('active-view');
+            photosContainer.classList.remove('active-view');
+            planesContainer.classList.remove('active-view');
+
+            if(type === 'design') {
+                designContainer.classList.add('active-view');
+                gsap.to(pill, { xPercent: 0, opacity: 1, duration: 0.6, ease: "back.out(1.5)" });
+            } else if (type === 'photos') {
+                photosContainer.classList.add('active-view');
+                gsap.to(pill, { xPercent: 100, opacity: 1, duration: 0.6, ease: "back.out(1.5)" });
+            } else {
+                planesContainer.classList.add('active-view');
+                gsap.to(pill, { opacity: 0, duration: 0.3 });
+            }
+
+            gsap.fromTo(".active-view > *", 
+                { y: 40, opacity: 0 }, 
+                { y: 0, opacity: 1, stagger: 0.05, duration: 0.6, ease: "power3.out" }
+            );
+        }
+
+        btnDesign.onclick = () => showView('design');
+        btnPhotos.onclick = () => showView('photos');
+        btnShowPlanes.onclick = () => showView('planes');
+
+        resetHome.onclick = () => {
+            if(!isStarted) return;
+            isStarted = false;
+            gsap.to(masterSwitch, { top: "50%", scale: 1, duration: 1.1, ease: "expo.inOut" });
+            gsap.to(mainContent, { 
+                opacity: 0, 
+                duration: 0.5, 
+                onComplete: () => {
+                    mainContent.style.display = 'none';
+                    gsap.set(pill, { xPercent: 0, opacity: 1 });
+                } 
+            });
+        };
+    </script>
+</body>
+</html>
+
