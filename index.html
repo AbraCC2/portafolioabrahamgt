@@ -15,6 +15,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Syne', sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body, html {
@@ -22,7 +23,6 @@
             background: radial-gradient(circle at center, #D30000 0%, #a80000 100%);
             background-attachment: fixed;
             color: white;
-            /* Quitamos overflow hidden para que el scroll funcione en móviles */
             overflow-x: hidden;
         }
 
@@ -39,19 +39,8 @@
             mix-blend-mode: difference;
         }
 
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-btn {
-            cursor: pointer;
-            font-weight: 800;
-            text-transform: lowercase;
-            letter-spacing: 1px;
-            font-size: 18px;
-        }
+        .nav-left { display: flex; align-items: center; gap: 15px; }
+        .logo-btn { cursor: pointer; font-weight: 800; text-transform: lowercase; font-size: 18px; }
 
         .nav-btn {
             text-decoration: none;
@@ -62,8 +51,6 @@
             border: 1px solid rgba(255,255,255,0.3);
             padding: 8px 18px;
             border-radius: 50px;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
             cursor: pointer;
             background: transparent;
         }
@@ -77,6 +64,7 @@
             z-index: 150;
             width: 90%;
             max-width: 850px;
+            /* Estado inicial vertical en móviles se maneja por JS/GSAP */
         }
 
         .switch-track {
@@ -88,6 +76,15 @@
             position: relative;
             border: 1px solid rgba(255,255,255,0.1);
             backdrop-filter: blur(15px);
+        }
+
+        .switch-option {
+            flex: 1;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
         }
 
         .switch-option span {
@@ -111,7 +108,7 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        /* CONTENIDO PRINCIPAL */
+        /* CONTENIDO */
         .main-content {
             width: 100%;
             display: none;
@@ -131,47 +128,7 @@
 
         .active-view { display: grid; }
 
-        /* PLANES */
-        .planes-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .plan-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 40px;
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            flex: 1;
-            min-width: 320px;
-            max-width: 380px;
-            backdrop-filter: blur(10px);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .plan-card h2 { font-size: 32px; margin-bottom: 20px; text-transform: lowercase; }
-        .plan-card .price { font-size: 40px; font-weight: 800; margin-bottom: 10px; }
-        .plan-card .desc { font-size: 14px; opacity: 0.8; margin-bottom: 25px; line-height: 1.5; }
-
-        .hire-btn {
-            display: inline-block;
-            text-decoration: none;
-            background: white;
-            color: black;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 14px;
-            text-transform: lowercase;
-        }
-
-        /* GALERIA CARDS */
+        /* CARDS */
         .post-card {
             background: rgba(255,255,255,0.03); 
             aspect-ratio: 4 / 5; 
@@ -179,63 +136,52 @@
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1);
         }
-
         .post-card img { width: 100%; height: 100%; object-fit: cover; }
+        .placeholder-card { display: flex; align-items: center; justify-content: center; text-align: center; border: 2px dashed rgba(255,255,255,0.2); padding: 15px; }
+        .placeholder-card span { font-size: 14px; opacity: 0.4; text-transform: lowercase; }
 
-        .placeholder-card {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* PLANES */
+        .planes-grid { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+        .plan-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
             text-align: center;
-            border: 2px dashed rgba(255,255,255,0.2);
+            flex: 1;
+            min-width: 300px;
+            max-width: 380px;
+            backdrop-filter: blur(10px);
         }
+        .plan-card h2 { font-size: 24px; margin-bottom: 15px; text-transform: lowercase; }
+        .plan-card .price { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+        .plan-card .desc { font-size: 13px; opacity: 0.7; margin-bottom: 20px; line-height: 1.4; }
+        .hire-btn { display: inline-block; text-decoration: none; background: white; color: black; padding: 12px 25px; border-radius: 50px; font-weight: 800; font-size: 13px; text-transform: lowercase; }
 
-        .placeholder-card span { font-size: 16px; opacity: 0.4; text-transform: lowercase; }
-
-        /* --- RESPONSIVE MOBILE FIX --- */
+        /* --- RESPONSIVE MOBILE --- */
         @media (max-width: 768px) {
-            .navbar {
-                padding: 20px;
-            }
-            
-            .nav-left { gap: 5px; }
-            .logo-btn { font-size: 14px; margin-right: 5px; }
-            .nav-btn { font-size: 9px; padding: 6px 10px; }
+            .navbar { padding: 20px; }
+            .logo-btn { font-size: 16px; }
+            .nav-btn { font-size: 10px; padding: 6px 12px; }
 
-            .master-switch-container {
-                width: 90%;
+            /* Switch Inicial Vertical */
+            .master-switch-container { 
+                width: 70%; /* Un poco más estrecho para que el giro vertical no choque */
             }
-
-            .switch-track {
-                height: 70px;
-            }
-
+            .switch-track { height: 70px; border-radius: 100px; }
             .switch-option span { font-size: 14px; letter-spacing: 1px; }
-
-            .main-content {
-                padding: 100px 15px 150px 15px; /* Más padding abajo para que el switch no tape nada */
-                overflow-y: visible; /* Permitir scroll natural */
+            .selector-pill { 
+                width: calc(50% - 10px); 
+                height: calc(100% - 20px); 
+                top: 10px; 
+                left: 10px; 
             }
 
-            .section-view {
-                grid-template-columns: repeat(2, 1fr); /* 2 columnas en móvil */
-                gap: 10px;
-            }
-
-            .planes-grid {
-                display: block; /* Cambio de flex a block para scroll vertical puro */
-            }
-
-            .plan-card {
-                min-width: 100%;
-                margin-bottom: 20px; /* Espacio entre planes */
-                padding: 30px 20px;
-            }
-
-            .plan-card h2 { font-size: 22px; }
-            .plan-card .price { font-size: 28px; }
+            .main-content { padding: 100px 15px 150px 15px; }
+            .section-view { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .planes-grid { display: block; }
+            .plan-card { min-width: 100%; margin-bottom: 15px; padding: 25px; }
         }
-
     </style>
 </head>
 <body>
@@ -246,25 +192,116 @@
             <a href="https://wa.me/529987684125" target="_blank" class="nav-btn">contacto</a>
             <button class="nav-btn" id="btn-show-planes">planes</button>
         </div>
-        <div style="font-weight: 700; opacity: 0.4; font-size: 8px; text-transform: lowercase;">© 2026</div>
+        <div style="font-weight: 700; opacity: 0.3; font-size: 8px; text-transform: lowercase;">portfolio © 2026</div>
     </nav>
 
     <div class="master-switch-container" id="master-switch">
         <div class="switch-track">
             <div class="selector-pill" id="pill"></div>
-            <div class="switch-option" id="btn-design" style="flex:1; display:flex; justify-content:center; align-items:center; cursor:pointer; z-index:10;"><span>diseños</span></div>
-            <div class="switch-option" id="btn-photos" style="flex:1; display:flex; justify-content:center; align-items:center; cursor:pointer; z-index:10;"><span>fotos</span></div>
+            <div class="switch-option" id="btn-design"><span>diseños</span></div>
+            <div class="switch-option" id="btn-photos"><span>fotos</span></div>
         </div>
     </div>
 
     <main class="main-content" id="main-content">
         <div class="section-view" id="view-design"></div>
         <div class="section-view" id="view-photos"></div>
-
         <div class="section-view" id="view-planes">
             <div class="planes-grid">
                 <div class="plan-card">
-                    <div>
-                        <h2>landing page</h2>
-                        <div class="price">$3,899 <small style="font-size: 16px;">MXN</small></div>
-                        <p
+                    <h2>landing page</h2>
+                    <div class="price">$3,899 <small>MXN</small></div>
+                    <p class="desc">Tu marca en una sola página. Diseño de alto impacto enfocado en conversión.</p>
+                    <a href="https://wa.me/529987684125" class="hire-btn">quiero mi página</a>
+                </div>
+                <div class="plan-card">
+                    <h2>diseño ilimitado</h2>
+                    <div class="price">$5,599 <small>MXN/mes</small></div>
+                    <p class="desc">Todos los diseños que necesites en un flujo constante de trabajo.</p>
+                    <a href="https://wa.me/529987684125" class="hire-btn">quiero contratar</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const pill = document.getElementById('pill');
+        const masterSwitch = document.getElementById('master-switch');
+        const mainContent = document.getElementById('main-content');
+        const isMobile = window.innerWidth <= 768;
+
+        // ESTADO INICIAL: Si es móvil, rotar 90 grados
+        if (isMobile) {
+            gsap.set(masterSwitch, { rotation: 90 });
+        }
+
+        function initGallery() {
+            const design = document.getElementById('view-design');
+            const photos = document.getElementById('view-photos');
+            for (let i = 1; i <= 18; i++) design.innerHTML += `<div class="post-card"><img src="diseño${i}.jpg"></div>`;
+            design.innerHTML += `<div class="post-card placeholder-card"><span>aquí podría estar el tuyo</span></div>`;
+            for (let i = 1; i <= 9; i++) photos.innerHTML += `<div class="post-card"><img src="foto${i}.jpg"></div>`;
+        }
+        initGallery();
+
+        function showView(type) {
+            const isMobileView = window.innerWidth <= 768;
+
+            if(!mainContent.style.display || mainContent.style.display === 'none') {
+                // ANIMACIÓN DE DESPIERTE
+                const targetTop = isMobileView ? "calc(100% - 70px)" : "calc(100% - 90px)";
+                const targetScale = isMobileView ? 0.9 : 0.5;
+
+                gsap.to(masterSwitch, { 
+                    top: targetTop, 
+                    rotation: 0, // Regresa a horizontal
+                    scale: targetScale, 
+                    duration: 1.2, 
+                    ease: "expo.inOut" 
+                });
+
+                mainContent.style.display = 'block';
+                gsap.fromTo(mainContent, { opacity: 0 }, { opacity: 1, duration: 0.6, delay: 0.5 });
+            }
+
+            // Lógica de cambio de vista
+            document.querySelectorAll('.section-view').forEach(v => v.classList.remove('active-view'));
+            const target = document.getElementById(`view-${type}`);
+            target.classList.add('active-view');
+
+            if(type === 'planes') {
+                gsap.to(pill, { opacity: 0, duration: 0.3 });
+            } else {
+                gsap.to(pill, { opacity: 1, xPercent: type === 'design' ? 0 : 100, duration: 0.4 });
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.getElementById('btn-design').onclick = () => showView('design');
+        document.getElementById('btn-photos').onclick = () => showView('photos');
+        document.getElementById('btn-show-planes').onclick = () => showView('planes');
+
+        // BOTÓN ABRAHAM: Regresa todo al inicio
+        document.getElementById('reset-home').onclick = () => {
+            const isMobileView = window.innerWidth <= 768;
+            
+            // Ocultar contenido
+            gsap.to(mainContent, { opacity: 0, duration: 0.4, onComplete: () => {
+                mainContent.style.display = 'none';
+            }});
+
+            // Regresar Switch al centro y rotar si es móvil
+            gsap.to(masterSwitch, { 
+                top: "50%", 
+                rotation: isMobileView ? 90 : 0, 
+                scale: 1, 
+                duration: 1.2, 
+                ease: "expo.inOut" 
+            });
+            
+            // Reset de la pastilla
+            gsap.to(pill, { xPercent: 0, opacity: 1 });
+        };
+    </script>
+</body>
+</html>
