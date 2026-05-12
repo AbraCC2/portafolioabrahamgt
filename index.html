@@ -1,455 +1,129 @@
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Portfolio | Abraham</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+(0:00) Esto es un centauro.
+(0:01) Esto también.
+(0:02) Esto no.
+(0:03) Y esto tampoco.
+(0:05) Y esto es clase de criaturas mágicas.
+(0:07) Y hoy vamos a hablar de centauros.
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Syne', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
+(0:10) Los centauros son una de las criaturas más famosas de toda la mitología griega.
+(0:14) Y también una de las más incómodas de analizar biológicamente.
+(0:18) Porque cuando eras niño pensabas:
+(0:20) “Oh, un hombre caballo.”
+(0:22) Pero luego creces, aprendes un poco de anatomía…
+(0:25) y entiendes que esa criatura probablemente tiene problemas lumbares devastadores.
 
-        body, html {
-            height: 100%;
-            width: 100%;
-            background: radial-gradient(circle at center, #D30000 0%, #a80000 100%);
-            background-attachment: fixed;
-            color: white;
-            overflow: hidden;
-        }
+(0:30) Un centauro no es simplemente un caballo con torso humano pegado encima.
+(0:34) Bueno, sí.
+(0:35) Pero eso implica muchísimas cosas raras.
+(0:38) Dos cajas torácicas.
+(0:39) Dos columnas conectadas.
+(0:41) Un sistema digestivo gigantesco.
+(0:43) Y una cantidad absurda de calor corporal.
 
-        /* NAVBAR */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 40px 60px;
-            z-index: 200;
-            mix-blend-mode: difference;
-        }
+(0:46) Porque sí, los caballos ya generan muchísimo calor al correr.
+(0:50) Ahora imagina además medio humano musculoso encima.
+(0:53) Básicamente un horno mitológico con arco y flechas.
 
-        .nav-left {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+(0:57) La fantasía moderna suele retratarlos como criaturas nobles y sabias.
+(1:01) Guardianes del bosque.
+(1:02) Protectores de la naturaleza.
+(1:04) Filósofos con crin perfecta al viento.
+(1:07) Pero los griegos originales no los veían exactamente así.
 
-        .logo-btn {
-            cursor: pointer;
-            font-weight: 800;
-            text-transform: lowercase;
-            letter-spacing: 1px;
-            font-size: 18px;
-            margin-right: 15px;
-        }
+(1:11) En la mitología clásica, la mayoría de centauros eran violentos, temperamentales y extremadamente impulsivos.
+(1:17) Especialmente cuando había alcohol de por medio.
+(1:20) Que casi siempre lo había.
 
-        .nav-btn {
-            text-decoration: none;
-            color: white;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: lowercase;
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 8px 18px;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-            cursor: pointer;
-            background: transparent;
-        }
+(1:22) De hecho, una de las historias más famosas ocurre durante la boda de Pirítoo, rey de los lápitas.
+(1:28) Los centauros fueron invitados porque técnicamente eran familia lejana.
+(1:32) Grave error.
 
-        .nav-btn:hover {
-            background: white;
-            color: black;
-            transform: scale(1.05);
-        }
+(1:34) Resulta que los centauros no tenían mucha tolerancia al vino.
+(1:38) Y después de beber un poco…
+(1:40) bueno.
+(1:41) Intentaron secuestrar a la novia y a varias mujeres de la fiesta.
 
-        /* MASTER SWITCH */
-        .master-switch-container {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 150;
-            width: 90%;
-            max-width: 850px;
-        }
+(1:45) Sí.
+(1:46) La mitología griega escala muy rápido.
 
-        .switch-track {
-            width: 100%;
-            height: 140px;
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 300px;
-            display: flex;
-            position: relative;
-            border: 1px solid rgba(255,255,255,0.1);
-            backdrop-filter: blur(15px);
-        }
+(1:49) Esto terminó en una batalla gigantesca llamada la Centauromaquia.
+(1:53) Humanos contra centauros.
+(1:55) Mesas rotas.
+(1:56) lanzas.
+(1:57) caos absoluto.
+(1:59) Básicamente una cena familiar en Grecia antigua.
 
-        .switch-option {
-            flex: 1;
-            z-index: 10;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            cursor: pointer;
-        }
+(2:03) Y aquí aparece algo interesante.
+(2:05) Los griegos usaban a los centauros como símbolo del conflicto entre civilización e instinto.
+(2:11) Mitad humano.
+(2:12) Mitad animal.
+(2:14) Razón contra impulso.
 
-        .switch-option span {
-            text-transform: lowercase;
-            font-size: 26px;
-            font-weight: 700;
-            letter-spacing: 3px;
-            color: white;
-            opacity: 0.3;
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
-            display: inline-block;
-        }
+(2:16) Porque el cuerpo humano está arriba.
+(2:18) Pero la parte dominante…
+(2:20) la fuerte…
+(2:21) sigue siendo el caballo.
 
-        .switch-option:hover span {
-            transform: scale(1.2) translateY(-5px);
-            opacity: 1;
-        }
+(2:24) Aunque claro, hay una excepción enorme: Quirón.
 
-        .selector-pill {
-            position: absolute;
-            width: calc(50% - 18px);
-            height: calc(100% - 36px);
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 300px;
-            top: 18px;
-            left: 18px;
-            z-index: 1;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            pointer-events: none;
-        }
+(2:28) Quirón no era como los demás centauros.
+(2:31) Era sabio, tranquilo y absurdamente inteligente.
+(2:35) Médico, filósofo, astrónomo y maestro de héroes.
 
-        /* GALERÍA */
-        .main-content {
-            width: 100%;
-            display: none;
-            padding: 160px 60px 200px 60px; 
-            opacity: 0;
-            height: 100vh;
-            overflow-y: auto;
-        }
+(2:39) Y cuando digo héroes, hablo de literalmente media mitología griega.
+(2:43) Aquiles entrenó con él.
+(2:45) Jasón también.
+(2:46) Asclepio, el dios de la medicina, aprendió de él.
+(2:50) O sea, Quirón era básicamente el profesor universitario más importante de Grecia.
 
-        .section-view {
-            display: none;
-            width: 100%;
-            max-width: 1400px;
-            margin: 0 auto;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 40px;
-        }
+(2:55) Y honestamente, bastante paciente.
+(2:57) Porque entrenar adolescentes semidioses debe ser agotador.
 
-        .active-view { display: grid; }
+(3:01) Ahora, si hablamos de combate… los centauros serían aterradores.
+(3:06) Tienen la velocidad y resistencia de un caballo, pero además pueden usar herramientas humanas.
+(3:11) Espadas.
+(3:12) Lanzas.
+(3:13) Arcos.
 
-        /* PLANES VIEW */
-        #view-planes {
-            display: none;
-            height: auto;
-            align-items: center;
-            justify-content: center;
-        }
+(3:15) Y un arquero centauro tiene muchísimo sentido.
+(3:18) Porque puede disparar mientras galopa sin perder velocidad.
+(3:22) Literalmente una plataforma de guerra todoterreno.
 
-        #view-planes.active-view {
-            display: flex;
-        }
+(3:26) También tendrían sentidos muy desarrollados.
+(3:29) Los caballos detectan movimiento rapidísimo y pueden escuchar sonidos a mucha distancia.
+(3:34) Así que esconderte de un centauro en el bosque probablemente sería inútil.
 
-        .planes-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            justify-content: center;
-            max-width: 1200px;
-            width: 100%;
-        }
+(3:39) Aunque tienen una debilidad bastante graciosa.
+(3:42) Los caballos se asustan facilísimo.
+(3:45) Bolsas de plástico.
+(3:46) Sombras raras.
+(3:47) sonidos extraños.
+(3:49) Así que existe la posibilidad de que un centauro armado hasta los dientes salga corriendo porque una rama crujió raro.
 
-        .plan-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 40px;
-            border-radius: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            flex: 1;
-            min-width: 320px;
-            max-width: 380px;
-            backdrop-filter: blur(10px);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.3s ease;
-        }
+(3:55) Y sí… eso los hace mucho más creíbles.
 
-        .plan-card:hover {
-            transform: scale(1.02);
-            background: rgba(255, 255, 255, 0.08);
-        }
+(3:58) Los centauros aparecen prácticamente en toda la fantasía moderna.
+(4:01) Harry Potter.
+(4:02) Percy Jackson.
+(4:03) Narnia.
+(4:04) World of Warcraft.
+(4:06) Dungeons & Dragons.
+(4:08) Y en casi cualquier videojuego donde exista un bosque mágico.
 
-        .plan-card h2 { text-transform: lowercase; font-size: 32px; margin-bottom: 20px; color: #fff; }
-        .plan-card .price { font-size: 40px; font-weight: 800; margin-bottom: 10px; }
-        .plan-card .desc { font-size: 14px; opacity: 0.8; margin-bottom: 25px; line-height: 1.5; }
+(4:12) Aunque casi siempre los vuelven demasiado elegantes.
+(4:15) Muy espirituales.
+(4:16) Muy perfectos.
 
-        .hire-btn {
-            display: inline-block;
-            text-decoration: none;
-            background: white;
-            color: black;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-weight: 800;
-            font-size: 14px;
-            text-transform: lowercase;
-            margin-top: 20px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+(4:18) Y honestamente, me gusta más la versión mitológica original.
+(4:22) Más salvaje.
+(4:23) Más caótica.
+(4:25) Más humana, curiosamente.
 
-        .hire-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
+(4:28) Porque al final, los centauros siempre han representado eso.
+(4:32) La lucha constante entre pensar…
+(4:35) y simplemente dejarse llevar por el impulso.
 
-        .small-print { font-size: 11px; opacity: 0.4; text-transform: lowercase; margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px; }
+(4:39) Y hasta aquí la clase.
 
-        .post-card {
-            background: rgba(255,255,255,0.03); 
-            aspect-ratio: 4 / 5; 
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.1);
-            cursor: pointer;
-            transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1.3);
-        }
-
-        .post-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-        .post-card:hover { transform: translateY(-15px) scale(1.02); border-color: rgba(255,255,255,0.3); }
-        .post-card:hover img { transform: scale(1.05); }
-
-        .placeholder-card {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 40px;
-            border: 2px dashed rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.02);
-        }
-
-        .placeholder-card span {
-            font-size: 18px;
-            font-weight: 700;
-            text-transform: lowercase;
-            opacity: 0.4;
-            letter-spacing: 1px;
-            line-height: 1.4;
-        }
-
-        /* AJUSTES ESPECÍFICOS PARA MÓVILES */
-        @media (max-width: 768px) {
-            .navbar { padding: 20px; }
-            .logo-btn { font-size: 16px; }
-            .nav-btn { font-size: 10px; padding: 6px 14px; }
-            .main-content { padding: 100px 15px 220px 15px; }
-            .section-view { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-            
-            .switch-track { height: 110px; border-radius: 60px; }
-            .switch-option span { font-size: 20px; letter-spacing: 1px; }
-            .selector-pill { width: calc(50% - 10px); height: calc(100% - 20px); top: 10px; left: 10px; }
-            
-            .planes-grid { display: block; }
-            .plan-card { min-width: 100%; margin-bottom: 20px; padding: 30px 20px; }
-            
-            /* Para que el copyright no pegue a planes */
-            .navbar > div:last-child { margin-left: 10px; font-size: 7px !important; }
-        }
-
-    </style>
-</head>
-<body>
-
-    <nav class="navbar">
-        <div class="nav-left">
-            <div class="logo-btn" id="reset-home">abraham</div>
-            <a href="https://wa.me/529987684125" target="_blank" class="nav-btn">contacto</a>
-            <button class="nav-btn" id="btn-show-planes">planes</button>
-        </div>
-        <div style="font-weight: 700; opacity: 0.4; letter-spacing: 1px; font-size: 11px; text-transform: lowercase;">portfolio © 2026</div>
-    </nav>
-
-    <div class="master-switch-container" id="master-switch">
-        <div class="switch-track">
-            <div class="selector-pill" id="pill"></div>
-            <div class="switch-option is-active" id="btn-design"><span>diseños</span></div>
-            <div class="switch-option" id="btn-photos"><span>fotos</span></div>
-        </div>
-    </div>
-
-    <main class="main-content" id="main-content">
-        <div class="section-view" id="view-design"></div>
-        <div class="section-view" id="view-photos"></div>
-
-        <div class="section-view" id="view-planes">
-            <div class="planes-grid">
-                <div class="plan-card">
-                    <div>
-                        <h2>landing page</h2>
-                        <div class="price">$3,899 <small style="font-size: 18px;">MXN</small></div>
-                        <div class="desc">Tu marca en una sola página. Diseño de alto impacto enfocado en conversión con botones directos a WhatsApp. Ideal para mostrar servicios y ser contactado al instante.</div>
-                        <a href="https://wa.me/529987684125?text=Hola%20Abraham,%20me%20interesa%20el%20servicio%20de%20Landing%20Page." target="_blank" class="hire-btn">quiero mi página</a>
-                    </div>
-                    <div class="small-print">* pago único por proyecto. incluye diseño responsivo para móviles.</div>
-                </div>
-
-                <div class="plan-card">
-                    <div>
-                        <h2>diseño ilimitado</h2>
-                        <div class="price">$5,599 <small style="font-size: 18px;">MXN / mes</small></div>
-                        <div class="desc">Acceso a todos los diseños que necesites en un flujo de 24 horas totales de trabajo mensual.</div>
-                        <a href="https://wa.me/529987684125?text=Hola%20Abraham,%20me%20interesa%20contratar%20el%20plan%20de%20Diseño%20Ilimitado." target="_blank" class="hire-btn">quiero contratar</a>
-                    </div>
-                    <div class="small-print">* requiere suscripción mensual activa para aplicar tarifa.</div>
-                </div>
-
-                <div class="plan-card">
-                    <div>
-                        <h2>fotos de producto</h2>
-                        <div class="price">$2,599 <small style="font-size: 18px;">MXN / mes</small></div>
-                        <div class="desc">Suscripción mensual: Todas las fotos que tu marca requiera.</div>
-                        <div style="margin: 10px 0; opacity: 0.3;">— o —</div>
-                        <div style="font-size: 13px; font-weight: 700; opacity: 0.8; text-transform: lowercase; margin-bottom: 5px;">precio fijo por foto: $120 MXN</div>
-                        <a href="https://wa.me/529987684125?text=Hola%20Abraham,%20me%20interesa%20contratar%20el%20servicio%20de%20Fotos%20de%20Producto." target="_blank" class="hire-btn">quiero contratar</a>
-                    </div>
-                    <div class="small-print">* el cliente deberá enviar los productos o cubrir el costo de adquisición para la sesión.</div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        const pill = document.getElementById('pill');
-        const masterSwitch = document.getElementById('master-switch');
-        const mainContent = document.getElementById('main-content');
-        const btnDesign = document.getElementById('btn-design');
-        const btnPhotos = document.getElementById('btn-photos');
-        const btnShowPlanes = document.getElementById('btn-show-planes');
-        const resetHome = document.getElementById('reset-home');
-        const spans = document.querySelectorAll('.switch-option span');
-        
-        const designContainer = document.getElementById('view-design');
-        const photosContainer = document.getElementById('view-photos');
-        const planesContainer = document.getElementById('view-planes');
-
-        let isStarted = false;
-        const isMobile = window.innerWidth <= 768;
-
-        // ESTADO INICIAL VERTICAL EN MÓVIL
-        if(isMobile) {
-            gsap.set(masterSwitch, { rotation: 90, scale: 1.1 });
-            gsap.set(spans, { rotation: -90 });
-        }
-
-        function generateGallery() {
-            for (let i = 1; i <= 18; i++) {
-                const card = document.createElement('div');
-                card.className = 'post-card';
-                card.innerHTML = `<img src="diseño${i}.jpg" alt="Diseño ${i}">`; 
-                designContainer.appendChild(card);
-            }
-            for (let i = 0; i < 3; i++) {
-                const card = document.createElement('div');
-                card.className = 'post-card placeholder-card';
-                card.innerHTML = `<span>aquí podría estar el tuyo</span>`;
-                designContainer.appendChild(card);
-            }
-            for (let i = 1; i <= 9; i++) {
-                const card = document.createElement('div');
-                card.className = 'post-card';
-                card.innerHTML = `<img src="foto${i}.jpg" alt="Foto ${i}">`;
-                photosContainer.appendChild(card);
-            }
-        }
-        generateGallery();
-
-        function showView(type) {
-            const isMobileView = window.innerWidth <= 768;
-            if(!isStarted) {
-                isStarted = true;
-                // ANIMACIÓN DE TRANSICIÓN: Se endereza y baja
-                gsap.to(masterSwitch, { 
-                    top: isMobileView ? "calc(100% - 85px)" : "calc(100% - 90px)", 
-                    scale: isMobileView ? 0.95 : 0.5, 
-                    rotation: 0,
-                    duration: 1.1, 
-                    ease: "expo.inOut" 
-                });
-                if(isMobileView) gsap.to(spans, { rotation: 0, duration: 1.1 });
-
-                mainContent.style.display = 'block';
-                gsap.to(mainContent, { opacity: 1, duration: 0.8, delay: 0.4 });
-            }
-
-            designContainer.classList.remove('active-view');
-            photosContainer.classList.remove('active-view');
-            planesContainer.classList.remove('active-view');
-
-            if(type === 'design') {
-                designContainer.classList.add('active-view');
-                gsap.to(pill, { xPercent: 0, opacity: 1, duration: 0.6, ease: "back.out(1.5)" });
-            } else if (type === 'photos') {
-                photosContainer.classList.add('active-view');
-                gsap.to(pill, { xPercent: 100, opacity: 1, duration: 0.6, ease: "back.out(1.5)" });
-            } else {
-                planesContainer.classList.add('active-view');
-                gsap.to(pill, { opacity: 0, duration: 0.3 });
-            }
-
-            gsap.fromTo(".active-view > *", 
-                { y: 40, opacity: 0 }, 
-                { y: 0, opacity: 1, stagger: 0.05, duration: 0.6, ease: "power3.out" }
-            );
-        }
-
-        btnDesign.onclick = () => showView('design');
-        btnPhotos.onclick = () => showView('photos');
-        btnShowPlanes.onclick = () => showView('planes');
-
-        resetHome.onclick = () => {
-            if(!isStarted) return;
-            isStarted = false;
-            const isMobileView = window.innerWidth <= 768;
-            
-            gsap.to(masterSwitch, { 
-                top: "50%", 
-                scale: isMobileView ? 1.1 : 1, 
-                rotation: isMobileView ? 90 : 0,
-                duration: 1.1, 
-                ease: "expo.inOut" 
-            });
-            if(isMobileView) gsap.to(spans, { rotation: -90, duration: 1.1 });
-
-            gsap.to(mainContent, { 
-                opacity: 0, 
-                duration: 0.5, 
-                onComplete: () => {
-                    mainContent.style.display = 'none';
-                    gsap.set(pill, { xPercent: 0, opacity: 1 });
-                } 
-            });
-        };
-    </script>
-</body>
-</html>
+(4:41) Como consejo final…
+(4:43) nunca aceptes vino de alguien que tenga pezuñas.
